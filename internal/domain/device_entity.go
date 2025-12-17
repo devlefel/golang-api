@@ -30,15 +30,8 @@ func NewDevice(id, name, brand string) *Device {
 	}
 }
 
-// CanUpdate checks if the device can be updated based on its current state.
-// Creation time cannot be updated is enforced by not exposing it in setters or update logic in service.
-// Name and brand properties cannot be updated if the device is in use.
 func (d *Device) CanUpdateDetails(newState DeviceState) error {
 	if d.State == DeviceStateInUse && (d.State != newState) {
-        // This logic might need refinement. 
-        // Requirement: "Name and brand properties cannot be updated if the device is in use."
-        // This implies checks on fields being changed, which we might handle in the service or here by passing new values.
-        // For strict DDD, we might want methods like `UpdateDetails(name, brand string) error`.
 		return nil 
 	}
 	return nil

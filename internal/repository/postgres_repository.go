@@ -57,7 +57,6 @@ func (r *PostgresRepository) FindByState(state domain.DeviceState) ([]*domain.De
 }
 
 func (r *PostgresRepository) Delete(id string) error {
-    // Note: Service layer handles "CanBeDeleted" check. Repository just executes.
 	result := r.db.Delete(&domain.Device{}, "id = ?", id)
     if result.Error != nil {
         return result.Error

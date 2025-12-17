@@ -143,29 +143,19 @@ func (h *DeviceHandler) UpdateDevice(c *gin.Context) {
     var device *domain.Device
     var err error
 
-    // Handle State Update
     if req.State != "" {
-        // Validate state enum if needed, or rely on service/domain
         device, err = h.service.UpdateDeviceState(id, domain.DeviceState(req.State))
         if err != nil {
             if err == domain.ErrDeviceNotFound {
                 c.JSON(http.StatusNotFound, ErrorResponse{Error: err.Error()})
                 return
             }
-             // Should likely handle specific errors
              c.JSON(http.StatusInternalServerError, ErrorResponse{Error: err.Error()})
              return
         }
     }
 
-    // Handle Details Update
     if req.Name != "" || req.Brand != "" {
-        // If state was updated, we might need to re-fetch or just update details now?
-        // Service UpdateDevice fetches inside.
-        // If name/brand are empty strings in JSON this won't trigger?
-        // req.Name is string. If user sends "name": "", it is empty string.
-        // If user omits it, it is empty string.
-        // So checking != "" means we can't un-set name. Usually names aren't empty.
         device, err = h.service.UpdateDevice(id, req.Name, req.Brand)
          if err != nil {
             if err == domain.ErrDeviceNotFound {
@@ -181,7 +171,6 @@ func (h *DeviceHandler) UpdateDevice(c *gin.Context) {
         }
     }
     
-    // If no fields provided, just return current state?
     if req.Name == "" && req.Brand == "" && req.State == "" {
         device, err = h.service.GetDevice(id)
         if err != nil {

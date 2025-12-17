@@ -100,7 +100,6 @@ func TestUpdateDevice(t *testing.T) {
         existing.State = domain.DeviceStateInUse
 		mockRepo.On("FindByID", "123").Return(existing, nil)
         
-        // No update call expected
 		_, err := svc.UpdateDevice("123", "New", "NewBrand")
 		assert.ErrorIs(t, err, domain.ErrDeviceInUse)
 	})
