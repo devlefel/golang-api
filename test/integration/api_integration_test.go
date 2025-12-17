@@ -15,10 +15,14 @@ import (
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
-func setupTestRouter() (*gin.Engine, *gorm.DB) {
-	db, _ := gorm.Open(sqlite.Open("file::memory:?cache=shared"), &gorm.Config{})
+func setupTestRouter() (*gin.Engine, *repository.PostgresRepository) {
+	// Use in-memory SQLite for integration testing
+	db, _ := gorm.Open(sqlite.Open("file::memory:?cache=shared"), &gorm.Config{
+        Logger: logger.Default.LogMode(logger.Silent),
+    })
 	db.AutoMigrate(&domain.Device{})
 
 	repo := repository.NewPostgresRepository(db)
@@ -27,7 +31,7 @@ func setupTestRouter() (*gin.Engine, *gorm.DB) {
 
 	r := gin.Default()
 	handler.RegisterRoutes(r, h)
-	return r, db
+	return r, repo
 }
 
 func TestCreateAndGetDevice(t *testing.T) {
