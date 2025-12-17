@@ -26,6 +26,13 @@ docker-compose up --build
 
 The API will be available at `http://localhost:8080`.
 
+## API Documentation
+
+The API documentation is available via:
+
+- **Swagger UI (Internal)**: `http://localhost:8080/swagger/index.html`
+- **Swagger UI (Standalone)**: `http://localhost:8081`
+
 ### Local Development
 
 1. Set `DATABASE_URL` environment variable.
