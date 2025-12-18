@@ -16,6 +16,14 @@ This project follows DDD (Domain-Driven Design) and Clean Architecture principle
 - Go 1.23+
 - Docker & Docker Compose
 
+## Configuration
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Update the values in `.env` as needed.
+
 ## Running the Application
 
 ### Using Docker Compose (Recommended)
