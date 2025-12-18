@@ -10,6 +10,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -20,7 +21,12 @@ import (
 // @host localhost:8080
 // @BasePath /api/v1
 func main() {
-    dsn := os.Getenv("DATABASE_URL")
+    // Load .env file if present
+    if err := godotenv.Load(); err != nil {
+        log.Println("No .env file found")
+    }
+
+	dsn := os.Getenv("DATABASE_URL")
     if dsn == "" {
         dsn = "host=db user=postgres password=postgres dbname=devices port=5432 sslmode=disable"
     }

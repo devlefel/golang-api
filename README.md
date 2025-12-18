@@ -32,6 +32,7 @@ The API documentation is available via:
 
 - **Swagger UI (Internal)**: `http://localhost:8080/swagger/index.html`
 - **Swagger UI (Standalone)**: `http://localhost:8081`
+- **Postman Collection**: `postman_collection.json` (Import into Postman)
 
 ### Local Development
 
